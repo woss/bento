@@ -1,13 +1,10 @@
 #!/bin/sh -eux
-gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
-curl -sSL https://get.rvm.io | bash -s stable
+# enable testing
+echo " \
 
-source /usr/local/rvm/scripts/rvm
+# Testing repository - main, contrib and non-free branches
+deb http://http.us.debian.org/debian testing main non-free contrib
+" >> /etc/apt/sources.list
 
-rvm use --install 2.1.4
-
-shift
-
-if (( $# ))
-then gem install $@
-fi
+apt-get update
+apt-get install -y ruby2.1
